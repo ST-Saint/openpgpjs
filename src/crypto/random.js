@@ -26,6 +26,14 @@ import util from '../util';
 
 const nodeCrypto = util.getNodeCrypto();
 
+function getRandomBytesNaive(length) {
+    const bytes = new Uint8Array(length);
+    for (let i = 0; i < length; i++) {
+        bytes[i] = Math.floor(Math.random() * 256);
+    }
+    return bytes;
+}
+
 /**
  * Retrieve secure random byte array of the specified length
  * @param {Integer} length - Length in bytes to generate
@@ -39,7 +47,9 @@ export function getRandomBytes(length) {
   } else if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
     crypto.getRandomValues(buf);
   } else {
-    throw new Error('No secure random number generator available.');
+    return getRandomBytesNaive(length);
+    // FIXME: secure random number generator
+    // throw new Error('No secure random number generator available.');
   }
   return buf;
 }

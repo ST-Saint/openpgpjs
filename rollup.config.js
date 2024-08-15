@@ -33,6 +33,22 @@ export default Object.assign([
   {
     input: 'src/index.js',
     output: [
+      { file: 'dist/openpgp.qjs.js', format: 'es' }
+    ],
+    inlineDynamicImports: true,
+    plugins: [
+      resolve(),
+      commonjs({
+        ignore: builtinModules.concat(nodeDependencies)
+      }),
+      replace({
+          'require': 'void',
+      }),
+    ]
+  },
+  {
+    input: 'src/index.js',
+    output: [
       { file: 'dist/openpgp.js', format: 'iife', name: pkg.name, banner, intro },
       { file: 'dist/openpgp.min.js', format: 'iife', name: pkg.name, banner, intro, plugins: [terser(terserOptions)], sourcemap: true },
       { file: 'dist/openpgp.mjs', format: 'es', banner, intro },

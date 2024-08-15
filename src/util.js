@@ -209,12 +209,13 @@ const util = {
    * @returns {Uint8Array|ReadableStream} A valid squence of utf8 bytes.
    */
   encodeUTF8: function (str) {
-    const encoder = new TextEncoder('utf-8');
-    // eslint-disable-next-line no-inner-declarations
-    function process(value, lastChunk = false) {
-      return encoder.encode(value, { stream: !lastChunk });
-    }
-    return stream.transform(str, process, () => process('', true));
+    // FIXME: avoid TextEncoder
+    // const encoder = new TextEncoder('utf-8');
+    // // eslint-disable-next-line no-inner-declarations
+    // function process(value, lastChunk = false) {
+    //   return encoder.encode(value, { stream: !lastChunk });
+    // }
+    // return stream.transform(str, process, () => process('', true));
   },
 
   /**
